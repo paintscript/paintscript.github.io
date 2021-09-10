@@ -1,0 +1,82 @@
+{:config
+ {:canvas       {:dims [100 100] :full-screen? false :scale 2 :hatching true}
+  :attr-classes {"outline" {:stroke "black" :fill "none" :stroke-width 1}
+                 "solid" {:stroke "none" :fill "black"}}
+  :attrs {:stroke "black" :fill "none" :stroke-width 1}
+  }
+ :galleries
+ {"path"
+  {:doc ({:url "https://svgwg.org/specs/paths"}
+         {:url "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths"}
+         {:url "https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d"})
+   :paintings
+   {"L" {:component {:script [[:path [:M [0 0]] [:L [50 50]]]]}}
+    "C" {:component
+         {:script
+          [[:path
+            [:M [17 21]]
+            [:C [109 -8] [-23 78] [85 85]]]]}}
+    "A" {:component
+         {:script
+          [[:path
+            [:M [50 10]]
+            [:A [40 40] [0 1 1] [10 50]]]]}}
+    "M,A,Q" {:component
+             {:script
+              [[:path
+                [:M [10 30]]
+                [:A [20 20] [0 0 1] [50 30]]
+                [:A [20 20] [0 0 1] [90 30]]
+                [:Q [90 60] [50 90]]
+                [:Q [10 60] [10 30] [:z]]]]}}}}
+
+  "path* attrs"
+  {:doc "non-standard path attributes"
+   :paintings
+   {"mirror horizontally"
+    {:component
+     {:script
+      [[:path
+        {:mirror {:mode :merged}}
+        [:M [50 34]]
+        [:C [45 8] [16 13] [13 31]]
+        [:S [20 66] [50 90]]]]}}
+
+    "mirror horizontally (separate)"
+    {:component
+     {:script
+      [[:path
+        {:mirror {:mode :separate}}
+        [:M [45 34]]
+        [:C [40 8] [11 13] [8 31]]
+        [:S [15 66] [45 90]]]]}}
+
+    "mirror vertically"
+    {:component
+     {:script
+      [[:path
+        {:mirror {:mode :merged, :axis 1}}
+        [:M [10 20]]
+        [:C [45 77] [48 9] [90 50]]]]}}
+
+    "mirror vertically (separate)"
+    {:component
+     {:script
+      [[:path
+        {:mirror {:mode :separate, :axis 1}}
+        [:M [10 15]]
+        [:C [45 72] [48 4] [90 45]]]]}}}}
+
+  "path* elems"
+  {:doc "non-standard path elements"
+   :paintings
+   {"arc"
+    {:component
+     {:script [[:path
+                [:arc [10 50] [30 25] [50 50]]
+                [:arc* {:mode :convex} [70 75] [90 50]]]]}}
+
+    "circle"
+    {:component
+     {:script [[:path
+                [:circle {:r 30 :center [50 50]}]]]}}}}}}
