@@ -1,5 +1,5 @@
 {:config
- {:canvas       {:dims [100 100] :full-screen? false :scale 2 :hatching true}
+ {:canvas       {:dims [100 100] :fullscreen? false :scale 2 :guide/hatching true}
   :attr-classes {"outline" {:stroke "black" :fill "none" :stroke-width 1}
                  "solid" {:stroke "none" :fill "black"}}
   :attrs {:stroke "black" :fill "none" :stroke-width 1}
