@@ -1,8 +1,9 @@
 {:config
- {:canvas       {:dims [100 100] :fullscreen? false :scale 2 :guides {:guide/hatching true}}
-  :attr-classes {"outline" {:stroke "black" :fill "none" :stroke-width 1}
-                 "solid" {:stroke "none" :fill "black"}}
-  :attrs {:stroke "black" :fill "none" :stroke-width 1}
+ {:canvas       {:dims [100 100] :fullscreen? true :scale 2 :guides {:guide/grid {:area :area/both}}}
+  :attr-classes {"outline" {:stroke "currentColor" :fill "none" :stroke-width 1}
+                 "solid" {:stroke "none" :fill "currentColor"}}
+  :attr-class-default "outline"
+  ;; :attrs {:stroke "black" :fill "none" :stroke-width 1}
   }
  :galleries
  {"path"
@@ -28,7 +29,8 @@
                 [:A [20 20] [0 0 1] [50 30]]
                 [:A [20 20] [0 0 1] [90 30]]
                 [:Q [90 60] [50 90]]
-                [:Q [10 60] [10 30] [:z]]]]}}}}
+                [:Q [10 60] [10 30]]
+                [:z]]]}}}}
 
   "path* attrs"
   {:doc "non-standard path attributes"
