@@ -1,101 +1,116 @@
-{:config
- {:canvas       {:dims [100 100] :scale 2 :guides {:guide/grid {:area :area/both}
-                                                   :guide/axis {:area :area/canvas}}}
-  :attr-classes {"outline" {:stroke "currentColor" :fill "none" :stroke-width 1}
-                 "solid" {:stroke "none" :fill "currentColor"}}
-  :attr-class-default "outline"
-  ;; :attrs {:stroke "black" :fill "none" :stroke-width 1}
-  }
- :galleries
- {"path"
-  {:doc ({:url "https://svgwg.org/specs/paths"}
-         {:url "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths"}
-         {:url "https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d"})
-   :config {:canvas {:zero :zero/init}}
-   :paintings
-   {"L" {:component {:script [[:path [:M [0 0]] [:L [50 50]]]]}}
-    "C" {:component
-         {:script
-          [[:path
-            [:M [17 21]]
-            [:C [109 -8] [-23 78] [85 85]]]]}}
-    "C,S" {:component
-           {:canvas {:zero :zero/center}
-            :script
-            [[:path {}]
-             [:path {}
-              [:M [-20 -20]]
-              [:C [-20 0] [0 -25] [0 0]]
-              [:S [20 0] [20 20]]
-              [:L]]]}}
+{:config/app {:canvas {:scale 2
+                       :guides {:guide/grid {:area :area/both}
+                                :guide/axis {:area :area/canvas}}}}
+ :config {:canvas       {:dims [100 100]}
+          :attr-classes {"outline" {:stroke "currentColor" :fill "none" :stroke-width 1}
+                         "solid" {:stroke "none" :fill "currentColor"}}
+          :attr-class-default "outline"}
+ :nodes
+ {"path" {:doc ({:url "https://svgwg.org/specs/paths"}
+                {:url "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths"}
+                {:url "https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d"})
+          :config {:canvas {:zero :zero/init}}
+          :nodes
+          {"L" {:component {:script [[:path [:M [0 0]] [:L [50 50]]]]}}
+           "C" {:component
+                {:script
+                 [[:path
+                   [:M [17 21]]
+                   [:C [109 -8] [-23 78] [85 85]]]]}}
+           "C,S" {:component
+                  {:canvas {:zero :zero/center}
+                   :script
+                   [[:path {}]
+                    [:path {}
+                     [:M [-20 -20]]
+                     [:C [-20 0] [0 -25] [0 0]]
+                     [:S [20 0] [20 20]]
+                     [:L]]]}}
 
-    "A" {:component
-         {:script
-          [[:path
-            [:M [50 10]]
-            [:A [40 40] [0 1 1] [10 50]]]]}}
-    "A,Q" {:component
-           {:script
-            [[:path
-              [:M [10 30]]
-              [:A [20 20] [0 0 1] [50 30]]
-              [:A [20 20] [0 0 1] [90 30]]
-              [:Q [90 60] [50 90]]
-              [:Q [10 60] [10 30]]
-              [:z]]]}}
+           "A" {:component
+                {:script
+                 [[:path
+                   [:M [50 10]]
+                   [:A [40 40] [0 1 1] [10 50]]]]}}
+           "A,Q" {:component
+                  {:script
+                   [[:path
+                     [:M [10 30]]
+                     [:A [20 20] [0 0 1] [50 30]]
+                     [:A [20 20] [0 0 1] [90 30]]
+                     [:Q [90 60] [50 90]]
+                     [:Q [10 60] [10 30]]
+                     [:z]]]}}
 
-    "M,Q" {:component
-           {:script [[:path [:M [5 50]] [:Q [50 0] [95 50]] [:Q [75 85] [50 50]]]]}}}}
+           "M,Q" {:component
+                  {:script [[:path [:M [5 50]] [:Q [50 0] [95 50]] [:Q [75 85] [50 50]]]]}}}}
 
   "path* attrs"
   {:doc "non-standard path attributes"
    :config {:canvas {:zero :zero/center}}
-   :paintings
-   {"mirror horizontally"
-    {:component
-     {:script
-      [[:path
-        {:mirror {:mode :merged}}
-        [:M [0 -16]]
-        [:C [-5 -42] [-34 -37] [-37 -19]]
-        [:S [-30 16] [0 40]]]]}}
+   :nodes {"mirror horizontally (zero/center)"
+           {:component {:script
+                        [[:path
+                          {:mirror {:mode :merged}}
+                          [:M [0 -16]]
+                          [:C [-5 -42] [-34 -37] [-37 -19]]
+                          [:S [-30 16] [0 40]]]]}}
 
-    "mirror horizontally (separate)"
-    {:component
-     {:script
-      [[:path
-        {:mirror {:mode :separate}}
-        [:M [-5 -16]]
-        [:C [-10 -42] [-39 -37] [-42 -19]]
-        [:S [-35 16] [-5 40]]]]}}
+           "mirror horizontally (zero/init)"
+           {:component {:canvas {:zero :zero/init}
+                        :script [[:path {:mirror {:mode :merged}}
+                                  [:M [50 34]]
+                                  [:C [45 8] [16 13] [13 31]]
+                                  [:S [20 66] [50 90]]]]}}
 
-    "mirror vertically"
-    {:component
-     {:script
-      [[:path
-        {:mirror {:mode :merged, :axis 1}}
-        [:M [-40 -30]]
-        [:C [-5 27] [-2 -41] [40 0]]]]}}
+           "mirror horizontally (separate)"
+           {:component {:script
+                        [[:path
+                          {:mirror {:mode :separate}}
+                          [:M [-5 -16]]
+                          [:C [-10 -42] [-39 -37] [-42 -19]]
+                          [:S [-35 16] [-5 40]]]]}}
 
-    "mirror vertically (separate)"
-    {:component
-     {:script
-      [[:path
-        {:mirror {:mode :separate, :axis 1}}
-        [:M [-40 -35]]
-        [:C [-5 22] [-2 -46] [40 -5]]]]}}}}
+           "mirror vertically"
+           {:component {:script
+                        [[:path
+                          {:mirror {:mode :merged, :axis 1}}
+                          [:M [-40 -30]]
+                          [:C [-5 27] [-2 -41] [40 0]]]]}}
+
+           "mirror vertically (separate)"
+           {:component {:script
+                        [[:path
+                          {:mirror {:mode :separate, :axis 1}}
+                          [:M [-40 -35]]
+                          [:C [-5 22] [-2 -46] [40 -5]]]]}}}}
 
   "path* elems"
   {:doc "non-standard path elements"
    :config {:canvas {:zero :zero/init}}
-   :paintings
-   {"arc"
-    {:component
-     {:script [[:path
-                [:arc [10 50] [30 25] [50 50]]
-                [:arc* {:mode :convex} [70 75] [90 50]]]]}}
+   :nodes {"arc"
+           {:component {:script [[:path
+                                  [:arc [10 50] [30 25] [50 50]]
+                                  [:arc* {:mode :convex} [70 75] [90 50]]]]}}
 
-    "circle"
-    {:component
-     {:script [[:path
-                [:circle {:r 30 :center [50 50]}]]]}}}}}}
+           "circle"
+           {:component {:script [[:path
+                                  [:circle {:r 30 :center [50 50]}]]]}}}}
+
+  "defs & refs"
+  {:doc "composing paths from reusable sub-segments"
+   :config {:canvas {:zero :zero/init}
+            :defs {"base" [[:M [22 66]]
+                           [:A [28.2 7] [0 0 1] [78 66]]
+                           [:L [78 84]]
+                           [:A [28.2 7] [0 0 1] [22 84]]
+                           [:L [22 66]]]}}
+   :nodes {"composite-1"
+           {:component {:script [[:path
+                                  [:ref "base"]
+                                  [:L [100 0]]]]}}
+
+           "composite-2"
+           {:component {:script [[:path
+                                  [:ref "base"]
+                                  [:L [0 0]]]]}}}}}}
