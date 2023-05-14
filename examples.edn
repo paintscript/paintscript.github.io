@@ -48,42 +48,46 @@
   "path* attrs"
   {:doc "non-standard path attributes"
    :config {:canvas {:zero :zero/center}}
-   :nodes {"mirror horizontally (zero/center)"
-           {:component {:script
-                        [[:path
-                          {:mirror {:mode :merged}}
-                          [:M [0 -16]]
-                          [:C [-5 -42] [-34 -37] [-37 -19]]
-                          [:S [-30 16] [0 40]]]]}}
+   :nodes {"translate" {:nodes {"absolute" {:component {:script [[:path {:translate [-10 -10]}
+                                                                  [:M [0 0]] [:L [0 20]] [:L [20 20]]]]}}
+                                "relative" {:component {:script [[:path {:translate [-10 -10]}
+                                                                  [:M [0 0]] [:v 20] [:h 20]]]}}}}
+           "mirror" {:nodes {"horizontally (zero/center)"
+                             {:component {:script
+                                          [[:path
+                                            {:mirror {:mode :merged}}
+                                            [:M [0 -16]]
+                                            [:C [-5 -42] [-34 -37] [-37 -19]]
+                                            [:S [-30 16] [0 40]]]]}}
 
-           "mirror horizontally (zero/init)"
-           {:component {:canvas {:zero :zero/init}
-                        :script [[:path {:mirror {:mode :merged}}
-                                  [:M [50 34]]
-                                  [:C [45 8] [16 13] [13 31]]
-                                  [:S [20 66] [50 90]]]]}}
+                             "horizontally (zero/init)"
+                             {:component {:canvas {:zero :zero/init}
+                                          :script [[:path {:mirror {:mode :merged}}
+                                                    [:M [50 34]]
+                                                    [:C [45 8] [16 13] [13 31]]
+                                                    [:S [20 66] [50 90]]]]}}
 
-           "mirror horizontally (separate)"
-           {:component {:script
-                        [[:path
-                          {:mirror {:mode :separate}}
-                          [:M [-5 -16]]
-                          [:C [-10 -42] [-39 -37] [-42 -19]]
-                          [:S [-35 16] [-5 40]]]]}}
+                             "horizontally (separate)"
+                             {:component {:script
+                                          [[:path
+                                            {:mirror {:mode :separate}}
+                                            [:M [-5 -16]]
+                                            [:C [-10 -42] [-39 -37] [-42 -19]]
+                                            [:S [-35 16] [-5 40]]]]}}
 
-           "mirror vertically"
-           {:component {:script
-                        [[:path
-                          {:mirror {:mode :merged, :axis 1}}
-                          [:M [-40 -30]]
-                          [:C [-5 27] [-2 -41] [40 0]]]]}}
+                             "vertically"
+                             {:component {:script
+                                          [[:path
+                                            {:mirror {:mode :merged, :axis 1}}
+                                            [:M [-40 -30]]
+                                            [:C [-5 27] [-2 -41] [40 0]]]]}}
 
-           "mirror vertically (separate)"
-           {:component {:script
-                        [[:path
-                          {:mirror {:mode :separate, :axis 1}}
-                          [:M [-40 -35]]
-                          [:C [-5 22] [-2 -46] [40 -5]]]]}}}}
+                             "vertically (separate)"
+                             {:component {:script
+                                          [[:path
+                                            {:mirror {:mode :separate, :axis 1}}
+                                            [:M [-40 -35]]
+                                            [:C [-5 22] [-2 -46] [40 -5]]]]}}}}}}
 
   "path* elems"
   {:doc "non-standard path elements"
@@ -98,19 +102,14 @@
                                   [:circle {:r 30 :center [50 50]}]]]}}}}
 
   "defs & refs"
-  {:doc "composing paths from reusable sub-segments"
-   :config {:canvas {:zero :zero/init}
-            :defs {"base" [[:M [22 66]]
-                           [:A [28.2 7] [0 0 1] [78 66]]
-                           [:L [78 84]]
-                           [:A [28.2 7] [0 0 1] [22 84]]
-                           [:L [22 66]]]}}
-   :nodes {"composite-1"
-           {:component {:script [[:path
-                                  [:ref "base"]
-                                  [:L [100 0]]]]}}
+  {:nodes {"path-seqs" {:doc "composing paths from reusable path-segment defs"
+                        :config {:canvas {:zero :zero/init}
+                                 :defs {"base" [[:M [10 50]] [:h 40] [:v 40] [:h 40]]}}
+                        :nodes {"composite-1" {:component {:script [[:path [:ref "base"] [:v -40]]]}}
+                                "composite-2" {:component {:script [[:path {:translate [0 -40]} [:ref "base"] [:v 40]]]}}}}
 
-           "composite-2"
-           {:component {:script [[:path
-                                  [:ref "base"]
-                                  [:L [0 0]]]]}}}}}}
+           "script-seqs" {:doc "composing scripts from reusable component defs"
+                          :config {:canvas {:zero :zero/init}
+                                   :defs {:components {"square" {:script [[:path [:M [0 0]] [:h 30] [:v 30] [:h -40] [:z]]]}}}}
+                          :nodes {"composite-1" {:component {:script [[:ref "square"]]}}
+                                  "composite-2" {:component {:script [[:ref "square"]]}}}}}}}}
