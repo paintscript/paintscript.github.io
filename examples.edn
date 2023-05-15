@@ -20,12 +20,10 @@
            "C,S" {:component
                   {:canvas {:zero :zero/center}
                    :script
-                   [[:path {}]
-                    [:path {}
+                   [[:path {}
                      [:M [-20 -20]]
                      [:C [-20 0] [0 -25] [0 0]]
-                     [:S [20 0] [20 20]]
-                     [:L]]]}}
+                     [:S [20 0] [20 20]]]]}}
 
            "A" {:component
                 {:script
