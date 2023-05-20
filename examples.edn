@@ -58,6 +58,16 @@
                                             [:C [-5 -42] [-34 -37] [-37 -19]]
                                             [:S [-30 16] [0 40]]]]}}
 
+                             "horizontally (A)"
+                             {
+                              :component {:canvas {:zero :zero/init}:script
+                                          [[:path
+                                            [:M [8 52]]
+                                            [:A [1 1] [0 0 1] [50 15]]
+                                            [:A [1 1] [0 0 1] [92 52]]
+                                            [:L [50 94]]
+                                            [:z]]]}}
+
                              "horizontally (zero/init)"
                              {:component {:canvas {:zero :zero/init}
                                           :script [[:path {:mirror {:mode :merged}}
